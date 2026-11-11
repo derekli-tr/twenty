@@ -1,6 +1,7 @@
 import { COMPANY_DATA_SEED_IDS } from 'src/engine/workspace-manager/dev-seeder/data/constants/company-data-seeds.constant';
 import { PERSON_DATA_SEED_IDS } from 'src/engine/workspace-manager/dev-seeder/data/constants/person-data-seeds.constant';
 import { TASK_DATA_SEED_IDS } from 'src/engine/workspace-manager/dev-seeder/data/constants/task-data-seeds.constant';
+import { DEV_SEED_RECORD_COUNTS } from 'src/engine/workspace-manager/dev-seeder/data/constants/dev-seed-record-counts.constant';
 
 type TaskTargetDataSeed = {
   id: string;
@@ -45,7 +46,7 @@ const TASK_TARGET_DATA_SEED_IDS = GENERATE_TASK_TARGET_IDS();
 const GENERATE_TASK_TARGET_SEEDS = (): TaskTargetDataSeed[] => {
   const TASK_TARGET_SEEDS: TaskTargetDataSeed[] = [];
 
-  for (let INDEX = 1; INDEX <= 1200; INDEX++) {
+  for (let INDEX = 1; INDEX <= DEV_SEED_RECORD_COUNTS.PERSON_TASK; INDEX++) {
     TASK_TARGET_SEEDS.push({
       id: TASK_TARGET_DATA_SEED_IDS[`ID_${INDEX}`],
       taskId: TASK_DATA_SEED_IDS[`ID_${INDEX}`],
@@ -58,7 +59,11 @@ const GENERATE_TASK_TARGET_SEEDS = (): TaskTargetDataSeed[] => {
     });
   }
 
-  for (let INDEX = 1201; INDEX <= 1800; INDEX++) {
+  for (
+    let INDEX = 1201;
+    INDEX <= 1200 + DEV_SEED_RECORD_COUNTS.COMPANY_TASK;
+    INDEX++
+  ) {
     const COMPANY_INDEX = INDEX - 1200;
 
     TASK_TARGET_SEEDS.push({

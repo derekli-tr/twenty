@@ -1,5 +1,5 @@
 import { CALENDAR_CHANNEL_DATA_SEED_IDS } from 'src/engine/workspace-manager/dev-seeder/core/constants/calendar-channel-seed-ids.constant';
-import { CALENDAR_EVENT_DATA_SEED_IDS } from 'src/engine/workspace-manager/dev-seeder/data/constants/calendar-event-data-seeds.constant';
+import { CALENDAR_EVENT_DATA_SEEDS } from 'src/engine/workspace-manager/dev-seeder/data/constants/calendar-event-data-seeds.constant';
 
 type CalendarChannelEventAssociationDataSeed = {
   id: string;
@@ -41,12 +41,7 @@ const GENERATE_CALENDAR_CHANNEL_EVENT_ASSOCIATION_SEEDS =
   (): CalendarChannelEventAssociationDataSeed[] => {
     const ASSOCIATION_SEEDS: CalendarChannelEventAssociationDataSeed[] = [];
 
-    const EVENT_IDS = Object.keys(CALENDAR_EVENT_DATA_SEED_IDS).map(
-      (key) =>
-        CALENDAR_EVENT_DATA_SEED_IDS[
-          key as keyof typeof CALENDAR_EVENT_DATA_SEED_IDS
-        ],
-    );
+    const EVENT_IDS = CALENDAR_EVENT_DATA_SEEDS.map((event) => event.id);
 
     const CHANNEL_IDS = [
       CALENDAR_CHANNEL_DATA_SEED_IDS.TIM,

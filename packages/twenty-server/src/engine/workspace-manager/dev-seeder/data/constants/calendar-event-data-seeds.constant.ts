@@ -1,3 +1,5 @@
+import { DEV_SEED_RECORD_COUNTS } from 'src/engine/workspace-manager/dev-seeder/data/constants/dev-seed-record-counts.constant';
+
 type CalendarEventDataSeed = {
   id: string;
   title: string;
@@ -156,7 +158,7 @@ const EVENT_TEMPLATES = [
 const GENERATE_CALENDAR_EVENT_SEEDS = (): CalendarEventDataSeed[] => {
   const CALENDAR_EVENT_SEEDS: CalendarEventDataSeed[] = [];
 
-  for (let INDEX = 1; INDEX <= 800; INDEX++) {
+  for (let INDEX = 1; INDEX <= DEV_SEED_RECORD_COUNTS.CALENDAR_EVENT; INDEX++) {
     const TEMPLATE_INDEX = (INDEX - 1) % EVENT_TEMPLATES.length;
     const TEMPLATE = EVENT_TEMPLATES[TEMPLATE_INDEX];
 

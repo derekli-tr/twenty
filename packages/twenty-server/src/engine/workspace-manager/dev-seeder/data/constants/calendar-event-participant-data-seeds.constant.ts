@@ -1,10 +1,11 @@
-import { CALENDAR_EVENT_DATA_SEED_IDS } from 'src/engine/workspace-manager/dev-seeder/data/constants/calendar-event-data-seeds.constant';
-import { PERSON_DATA_SEED_IDS } from 'src/engine/workspace-manager/dev-seeder/data/constants/person-data-seeds.constant';
+import { CALENDAR_EVENT_DATA_SEEDS } from 'src/engine/workspace-manager/dev-seeder/data/constants/calendar-event-data-seeds.constant';
+import { PERSON_DATA_SEEDS } from 'src/engine/workspace-manager/dev-seeder/data/constants/person-data-seeds.constant';
 import {
   WORKSPACE_MEMBER_DATA_SEED_IDS,
   getWorkspaceMemberDataSeeds,
 } from 'src/engine/workspace-manager/dev-seeder/data/constants/workspace-member-data-seeds.constant';
 import { CalendarEventParticipantResponseStatus } from 'src/modules/calendar/common/standard-objects/calendar-event-participant.workspace-entity';
+import { DEV_SEED_RECORD_COUNTS } from 'src/engine/workspace-manager/dev-seeder/data/constants/dev-seed-record-counts.constant';
 
 export type CalendarEventParticipantDataSeed = {
   id: string;
@@ -198,16 +199,6 @@ const CREATE_EVENT_PARTICIPANT_DATA = (
   return CREATE_FAKE_EVENT_PARTICIPANT();
 };
 
-const GET_PARTICIPANT_COUNT = (): number => {
-  const RAND = Math.random();
-
-  if (RAND < 0.2) return 1; // 20% - single participant
-  if (RAND < 0.5) return 2; // 30% - two participants
-  if (RAND < 0.8) return 3; // 30% - three participants
-
-  return 4; // 20% - four participants
-};
-
 const GET_RESPONSE_STATUS = (
   isOrganizer: boolean,
 ): CalendarEventParticipantResponseStatus => {
@@ -234,7 +225,8 @@ const CREATE_EVENT_PARTICIPANTS = (
   participantIndex: number,
 ): { participants: CalendarEventParticipantDataSeed[]; nextIndex: number } => {
   const PARTICIPANTS: CalendarEventParticipantDataSeed[] = [];
-  const PARTICIPANT_COUNT = GET_PARTICIPANT_COUNT();
+  const PARTICIPANT_COUNT =
+    DEV_SEED_RECORD_COUNTS.PARTICIPANTS_PER_CALENDAR_EVENT;
 
   const USED_PERSON_IDS = new Set<string>();
   const USED_WORKSPACE_MEMBER_IDS = new Set<string>();
@@ -274,16 +266,9 @@ const GENERATE_CALENDAR_EVENT_PARTICIPANT_SEEDS = (
   const PARTICIPANT_SEEDS: CalendarEventParticipantDataSeed[] = [];
   let PARTICIPANT_INDEX = 1;
 
-  const EVENT_IDS = Object.keys(CALENDAR_EVENT_DATA_SEED_IDS).map(
-    (key) =>
-      CALENDAR_EVENT_DATA_SEED_IDS[
-        key as keyof typeof CALENDAR_EVENT_DATA_SEED_IDS
-      ],
-  );
+  const EVENT_IDS = CALENDAR_EVENT_DATA_SEEDS.map((event) => event.id);
 
-  const PERSON_IDS = Object.keys(PERSON_DATA_SEED_IDS).map(
-    (key) => PERSON_DATA_SEED_IDS[key as keyof typeof PERSON_DATA_SEED_IDS],
-  );
+  const PERSON_IDS = PERSON_DATA_SEEDS.map((person) => person.id);
   const WORKSPACE_MEMBER_IDS = getWorkspaceMemberDataSeeds(workspaceId).map(
     (member) => member.id,
   );

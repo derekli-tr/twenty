@@ -1,4 +1,5 @@
-import { MESSAGE_THREAD_DATA_SEED_IDS } from 'src/engine/workspace-manager/dev-seeder/data/constants/message-thread-data-seeds.constant';
+import { MESSAGE_THREAD_DATA_SEEDS } from 'src/engine/workspace-manager/dev-seeder/data/constants/message-thread-data-seeds.constant';
+import { DEV_SEED_RECORD_COUNTS } from 'src/engine/workspace-manager/dev-seeder/data/constants/dev-seed-record-counts.constant';
 
 type MessageDataSeed = {
   id: string;
@@ -92,14 +93,9 @@ const EMAIL_TEMPLATES = [
 const GENERATE_MESSAGE_SEEDS = (): MessageDataSeed[] => {
   const MESSAGE_SEEDS: MessageDataSeed[] = [];
 
-  const THREAD_IDS = Object.keys(MESSAGE_THREAD_DATA_SEED_IDS).map(
-    (key) =>
-      MESSAGE_THREAD_DATA_SEED_IDS[
-        key as keyof typeof MESSAGE_THREAD_DATA_SEED_IDS
-      ],
-  );
+  const THREAD_IDS = MESSAGE_THREAD_DATA_SEEDS.map((thread) => thread.id);
 
-  for (let INDEX = 1; INDEX <= 600; INDEX++) {
+  for (let INDEX = 1; INDEX <= DEV_SEED_RECORD_COUNTS.MESSAGE; INDEX++) {
     const TEMPLATE_INDEX = (INDEX - 1) % EMAIL_TEMPLATES.length;
     const TEMPLATE = EMAIL_TEMPLATES[TEMPLATE_INDEX];
 

@@ -4,6 +4,7 @@ import {
 } from 'twenty-shared/utils';
 
 import { WORKSPACE_MEMBER_DATA_SEED_IDS } from 'src/engine/workspace-manager/dev-seeder/data/constants/workspace-member-data-seeds.constant';
+import { DEV_SEED_RECORD_COUNTS } from 'src/engine/workspace-manager/dev-seeder/data/constants/dev-seed-record-counts.constant';
 
 type TaskDataSeed = {
   id: string;
@@ -199,7 +200,7 @@ const GENERATE_TASK_SEEDS = (): TaskDataSeed[] => {
   const TASK_SEEDS: TaskDataSeed[] = [];
 
   // Person tasks (ID_1 to ID_1200)
-  for (let INDEX = 1; INDEX <= 1200; INDEX++) {
+  for (let INDEX = 1; INDEX <= DEV_SEED_RECORD_COUNTS.PERSON_TASK; INDEX++) {
     const TEMPLATE_INDEX = (INDEX - 1) % PERSON_TASK_TEMPLATES.length;
     const TEMPLATE = PERSON_TASK_TEMPLATES[TEMPLATE_INDEX];
 
@@ -222,7 +223,11 @@ const GENERATE_TASK_SEEDS = (): TaskDataSeed[] => {
   }
 
   // Company tasks (ID_1201 to ID_1800)
-  for (let INDEX = 1201; INDEX <= 1800; INDEX++) {
+  for (
+    let INDEX = 1201;
+    INDEX <= 1200 + DEV_SEED_RECORD_COUNTS.COMPANY_TASK;
+    INDEX++
+  ) {
     const TEMPLATE_INDEX = (INDEX - 1201) % COMPANY_TASK_TEMPLATES.length;
     const TEMPLATE = COMPANY_TASK_TEMPLATES[TEMPLATE_INDEX];
 

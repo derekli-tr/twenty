@@ -1,3 +1,5 @@
+import { DEV_SEED_RECORD_COUNTS } from 'src/engine/workspace-manager/dev-seeder/data/constants/dev-seed-record-counts.constant';
+
 type MessageThreadDataSeed = {
   id: string;
   createdAt: Date;
@@ -41,7 +43,7 @@ export const MESSAGE_THREAD_DATA_SEED_IDS = GENERATE_MESSAGE_THREAD_IDS();
 const GENERATE_MESSAGE_THREAD_SEEDS = (): MessageThreadDataSeed[] => {
   const THREAD_SEEDS: MessageThreadDataSeed[] = [];
 
-  for (let INDEX = 1; INDEX <= 300; INDEX++) {
+  for (let INDEX = 1; INDEX <= DEV_SEED_RECORD_COUNTS.MESSAGE_THREAD; INDEX++) {
     const NOW = new Date();
     const RANDOM_DAYS_OFFSET = Math.floor(Math.random() * 90); // 0 to 90 days ago
     const CREATED_DATE = new Date(

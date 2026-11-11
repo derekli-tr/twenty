@@ -1,6 +1,7 @@
 import { COMPANY_DATA_SEED_IDS } from 'src/engine/workspace-manager/dev-seeder/data/constants/company-data-seeds.constant';
 import { NOTE_DATA_SEED_IDS } from 'src/engine/workspace-manager/dev-seeder/data/constants/note-data-seeds.constant';
 import { PERSON_DATA_SEED_IDS } from 'src/engine/workspace-manager/dev-seeder/data/constants/person-data-seeds.constant';
+import { DEV_SEED_RECORD_COUNTS } from 'src/engine/workspace-manager/dev-seeder/data/constants/dev-seed-record-counts.constant';
 
 type NoteTargetDataSeed = {
   id: string;
@@ -43,7 +44,7 @@ const NOTE_TARGET_DATA_SEED_IDS = GENERATE_NOTE_TARGET_IDS();
 const GENERATE_NOTE_TARGET_SEEDS = (): NoteTargetDataSeed[] => {
   const NOTE_TARGET_SEEDS: NoteTargetDataSeed[] = [];
 
-  for (let INDEX = 1; INDEX <= 1200; INDEX++) {
+  for (let INDEX = 1; INDEX <= DEV_SEED_RECORD_COUNTS.PERSON_NOTE; INDEX++) {
     NOTE_TARGET_SEEDS.push({
       id: NOTE_TARGET_DATA_SEED_IDS[`ID_${INDEX}`],
       noteId: NOTE_DATA_SEED_IDS[`ID_${INDEX}`],
@@ -56,7 +57,11 @@ const GENERATE_NOTE_TARGET_SEEDS = (): NoteTargetDataSeed[] => {
     });
   }
 
-  for (let INDEX = 1201; INDEX <= 1800; INDEX++) {
+  for (
+    let INDEX = 1201;
+    INDEX <= 1200 + DEV_SEED_RECORD_COUNTS.COMPANY_NOTE;
+    INDEX++
+  ) {
     const COMPANY_INDEX = INDEX - 1200;
 
     NOTE_TARGET_SEEDS.push({

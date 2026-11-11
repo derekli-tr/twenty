@@ -6,6 +6,7 @@ import {
   WORKSPACE_MEMBER_DATA_SEED_IDS,
   WORKSPACE_MEMBER_DATA_SEEDS,
 } from 'src/engine/workspace-manager/dev-seeder/data/constants/workspace-member-data-seeds.constant';
+import { DEV_SEED_RECORD_COUNTS } from 'src/engine/workspace-manager/dev-seeder/data/constants/dev-seed-record-counts.constant';
 
 type OpportunityDataSeed = {
   id: string;
@@ -174,7 +175,7 @@ const OPPORTUNITY_TEMPLATES = [
 const GENERATE_OPPORTUNITY_SEEDS = (): OpportunityDataSeed[] => {
   const OPPORTUNITY_SEEDS: OpportunityDataSeed[] = [];
 
-  for (let INDEX = 1; INDEX <= OPPORTUNITY_DATA_SEED_COUNT; INDEX++) {
+  for (let INDEX = 1; INDEX <= DEV_SEED_RECORD_COUNTS.OPPORTUNITY; INDEX++) {
     const TEMPLATE_INDEX = (INDEX - 1) % OPPORTUNITY_TEMPLATES.length;
     const TEMPLATE = OPPORTUNITY_TEMPLATES[TEMPLATE_INDEX];
 

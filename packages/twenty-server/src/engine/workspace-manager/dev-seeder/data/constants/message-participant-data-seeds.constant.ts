@@ -1,11 +1,12 @@
 import { MessageParticipantRole } from 'twenty-shared/types';
 
-import { MESSAGE_DATA_SEED_IDS } from 'src/engine/workspace-manager/dev-seeder/data/constants/message-data-seeds.constant';
-import { PERSON_DATA_SEED_IDS } from 'src/engine/workspace-manager/dev-seeder/data/constants/person-data-seeds.constant';
+import { MESSAGE_DATA_SEEDS } from 'src/engine/workspace-manager/dev-seeder/data/constants/message-data-seeds.constant';
+import { PERSON_DATA_SEEDS } from 'src/engine/workspace-manager/dev-seeder/data/constants/person-data-seeds.constant';
 import {
   WORKSPACE_MEMBER_DATA_SEED_IDS,
   getWorkspaceMemberDataSeeds,
 } from 'src/engine/workspace-manager/dev-seeder/data/constants/workspace-member-data-seeds.constant';
+import { DEV_SEED_RECORD_COUNTS } from 'src/engine/workspace-manager/dev-seeder/data/constants/dev-seed-record-counts.constant';
 
 export type MessageParticipantDataSeed = {
   id: string;
@@ -224,8 +225,7 @@ const CREATE_MESSAGE_PARTICIPANTS = (
   participantIndex: number,
 ): { participants: MessageParticipantDataSeed[]; nextIndex: number } => {
   const PARTICIPANTS: MessageParticipantDataSeed[] = [];
-  const RECIPIENT_COUNT = 1 + Math.floor(Math.random() * 3); // 1-3 recipients
-  const TOTAL_PARTICIPANTS = 1 + RECIPIENT_COUNT; // sender + recipients
+  const TOTAL_PARTICIPANTS = DEV_SEED_RECORD_COUNTS.PARTICIPANTS_PER_MESSAGE;
 
   const USED_PERSON_IDS = new Set<string>();
   const USED_WORKSPACE_MEMBER_IDS = new Set<string>();
@@ -274,13 +274,9 @@ const GENERATE_MESSAGE_PARTICIPANT_SEEDS = (
   const PARTICIPANT_SEEDS: MessageParticipantDataSeed[] = [];
   let PARTICIPANT_INDEX = 1;
 
-  const MESSAGE_IDS = Object.keys(MESSAGE_DATA_SEED_IDS).map(
-    (key) => MESSAGE_DATA_SEED_IDS[key as keyof typeof MESSAGE_DATA_SEED_IDS],
-  );
+  const MESSAGE_IDS = MESSAGE_DATA_SEEDS.map((message) => message.id);
 
-  const PERSON_IDS = Object.keys(PERSON_DATA_SEED_IDS).map(
-    (key) => PERSON_DATA_SEED_IDS[key as keyof typeof PERSON_DATA_SEED_IDS],
-  );
+  const PERSON_IDS = PERSON_DATA_SEEDS.map((person) => person.id);
   const WORKSPACE_MEMBER_IDS = getWorkspaceMemberDataSeeds(workspaceId).map(
     (member) => member.id,
   );

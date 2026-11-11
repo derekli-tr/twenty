@@ -1,11 +1,12 @@
 import { FieldActorSource } from 'twenty-shared/types';
 
-import { COMPANY_DATA_SEED_IDS } from 'src/engine/workspace-manager/dev-seeder/data/constants/company-data-seeds.constant';
-import { NOTE_DATA_SEED_IDS } from 'src/engine/workspace-manager/dev-seeder/data/constants/note-data-seeds.constant';
-import { OPPORTUNITY_DATA_SEED_IDS } from 'src/engine/workspace-manager/dev-seeder/data/constants/opportunity-data-seeds.constant';
-import { PERSON_DATA_SEED_IDS } from 'src/engine/workspace-manager/dev-seeder/data/constants/person-data-seeds.constant';
-import { TASK_DATA_SEED_IDS } from 'src/engine/workspace-manager/dev-seeder/data/constants/task-data-seeds.constant';
+import { COMPANY_DATA_SEEDS } from 'src/engine/workspace-manager/dev-seeder/data/constants/company-data-seeds.constant';
+import { NOTE_DATA_SEEDS } from 'src/engine/workspace-manager/dev-seeder/data/constants/note-data-seeds.constant';
+import { OPPORTUNITY_DATA_SEEDS } from 'src/engine/workspace-manager/dev-seeder/data/constants/opportunity-data-seeds.constant';
+import { PERSON_DATA_SEEDS } from 'src/engine/workspace-manager/dev-seeder/data/constants/person-data-seeds.constant';
+import { TASK_DATA_SEEDS } from 'src/engine/workspace-manager/dev-seeder/data/constants/task-data-seeds.constant';
 import { WORKSPACE_MEMBER_DATA_SEED_IDS } from 'src/engine/workspace-manager/dev-seeder/data/constants/workspace-member-data-seeds.constant';
+import { DEV_SEED_RECORD_COUNTS } from 'src/engine/workspace-manager/dev-seeder/data/constants/dev-seed-record-counts.constant';
 
 type AttachmentDataSeed = {
   id: string;
@@ -142,15 +143,18 @@ export const generateAttachmentSeedsForWorkspace = (
   const seeds: AttachmentDataSeed[] = [];
   const fileSeedMetadata: AttachmentFileSeedMetadata[] = [];
 
-  const PERSON_IDS = Object.values(PERSON_DATA_SEED_IDS).slice(0, 120);
-  const COMPANY_IDS = Object.values(COMPANY_DATA_SEED_IDS).slice(0, 120);
-  const NOTE_IDS = Object.values(NOTE_DATA_SEED_IDS).slice(0, 80);
-  const TASK_IDS = Object.values(TASK_DATA_SEED_IDS).slice(0, 60);
-  const OPPORTUNITY_IDS = Object.values(OPPORTUNITY_DATA_SEED_IDS).slice(0, 20);
+  const toIds = (seeds: { id: string }[], limit: number) =>
+    seeds.slice(0, limit).map((seed) => seed.id);
+
+  const PERSON_IDS = toIds(PERSON_DATA_SEEDS, 120);
+  const COMPANY_IDS = toIds(COMPANY_DATA_SEEDS, 120);
+  const NOTE_IDS = toIds(NOTE_DATA_SEEDS, 80);
+  const TASK_IDS = toIds(TASK_DATA_SEEDS, 60);
+  const OPPORTUNITY_IDS = toIds(OPPORTUNITY_DATA_SEEDS, 20);
 
   let entityIndex = 0;
 
-  for (let index = 1; index <= 400; index++) {
+  for (let index = 1; index <= DEV_SEED_RECORD_COUNTS.ATTACHMENT; index++) {
     const nameVariationIndex = index % FILE_NAME_VARIATIONS.length;
     const nameVariation = FILE_NAME_VARIATIONS[nameVariationIndex];
     const sampleFile = ATTACHMENT_SAMPLE_FILES[nameVariation.sampleFileIndex];
@@ -164,7 +168,9 @@ export const generateAttachmentSeedsForWorkspace = (
     let targetTaskId: string | null = null;
     let targetOpportunityId: string | null = null;
 
-    const distributionValue = index % 100;
+    const distributionValue = Math.floor(
+      ((index - 1) * 100) / DEV_SEED_RECORD_COUNTS.ATTACHMENT,
+    );
 
     if (distributionValue < 30) {
       targetPersonId = PERSON_IDS[entityIndex % PERSON_IDS.length];

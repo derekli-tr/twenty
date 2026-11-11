@@ -1,0 +1,18 @@
+// Person N belongs to company ceil(N / 2), so keep PERSON = 2 * COMPANY and
+// OPPORTUNITY <= PERSON to stay within seeded relations.
+export const DEV_SEED_RECORD_COUNTS = {
+  COMPANY: 10,
+  PERSON: 20,
+  OPPORTUNITY: 15,
+  PERSON_TASK: 10,
+  COMPANY_TASK: 5,
+  PERSON_NOTE: 10,
+  COMPANY_NOTE: 5,
+  RANDOM_USER: 20,
+  ATTACHMENT: 20,
+  MESSAGE_THREAD: 5,
+  MESSAGE: 10,
+  PARTICIPANTS_PER_MESSAGE: 2,
+  CALENDAR_EVENT: 10,
+  PARTICIPANTS_PER_CALENDAR_EVENT: 2,
+} as const;

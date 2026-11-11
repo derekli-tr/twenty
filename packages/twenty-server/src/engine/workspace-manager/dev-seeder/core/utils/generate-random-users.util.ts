@@ -1,4 +1,5 @@
 import { SEED_APPLE_WORKSPACE_ID } from 'src/engine/workspace-manager/dev-seeder/core/constants/seeder-workspaces.constant';
+import { DEV_SEED_RECORD_COUNTS } from 'src/engine/workspace-manager/dev-seeder/data/constants/dev-seed-record-counts.constant';
 
 export type RandomUserData = {
   id: string;
@@ -459,7 +460,7 @@ export function generateRandomUsers(): {
   const passwordHash =
     '$2b$10$3LwXjJRtLsfx4hLuuXhxt.3mWgismTiZFCZSG3z9kDrSfsrBl0fT6';
 
-  for (let i = 1; i <= 1000; i++) {
+  for (let i = 1; i <= DEV_SEED_RECORD_COUNTS.RANDOM_USER; i++) {
     const firstNameIndex = Math.floor(
       seededRandom(i * 1000) * FIRST_NAMES.length,
     );

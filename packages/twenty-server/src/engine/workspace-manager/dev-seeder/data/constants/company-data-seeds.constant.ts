@@ -1,4 +1,5 @@
 import { WORKSPACE_MEMBER_DATA_SEED_IDS } from 'src/engine/workspace-manager/dev-seeder/data/constants/workspace-member-data-seeds.constant';
+import { DEV_SEED_RECORD_COUNTS } from 'src/engine/workspace-manager/dev-seeder/data/constants/dev-seed-record-counts.constant';
 
 type CompanyDataSeed = {
   id: string;
@@ -7925,12 +7926,13 @@ const COMPANY_DATA_SEEDS_RAW = [
   },
 ];
 
-export const COMPANY_DATA_SEEDS: CompanyDataSeed[] = COMPANY_DATA_SEEDS_RAW.map(
-  (company, index) => ({
-    ...company,
-    updatedBySource: company.createdBySource,
-    updatedByWorkspaceMemberId: company.createdByWorkspaceMemberId,
-    updatedByName: company.createdByName,
-    position: index + 1,
-  }),
-);
+export const COMPANY_DATA_SEEDS: CompanyDataSeed[] =
+  COMPANY_DATA_SEEDS_RAW.slice(0, DEV_SEED_RECORD_COUNTS.COMPANY).map(
+    (company, index) => ({
+      ...company,
+      updatedBySource: company.createdBySource,
+      updatedByWorkspaceMemberId: company.createdByWorkspaceMemberId,
+      updatedByName: company.createdByName,
+      position: index + 1,
+    }),
+  );

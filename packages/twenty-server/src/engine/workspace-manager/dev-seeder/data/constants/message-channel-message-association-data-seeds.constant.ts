@@ -1,5 +1,5 @@
 import { MESSAGE_CHANNEL_DATA_SEED_IDS } from 'src/engine/workspace-manager/dev-seeder/core/constants/message-channel-seed-ids.constant';
-import { MESSAGE_DATA_SEED_IDS } from 'src/engine/workspace-manager/dev-seeder/data/constants/message-data-seeds.constant';
+import { MESSAGE_DATA_SEEDS } from 'src/engine/workspace-manager/dev-seeder/data/constants/message-data-seeds.constant';
 import { MessageDirection } from 'src/modules/messaging/common/enums/message-direction.enum';
 
 type MessageChannelMessageAssociationDataSeed = {
@@ -50,9 +50,7 @@ const GENERATE_MESSAGE_CHANNEL_MESSAGE_ASSOCIATION_SEEDS =
   (): MessageChannelMessageAssociationDataSeed[] => {
     const ASSOCIATION_SEEDS: MessageChannelMessageAssociationDataSeed[] = [];
 
-    const MESSAGE_IDS = Object.keys(MESSAGE_DATA_SEED_IDS).map(
-      (key) => MESSAGE_DATA_SEED_IDS[key as keyof typeof MESSAGE_DATA_SEED_IDS],
-    );
+    const MESSAGE_IDS = MESSAGE_DATA_SEEDS.map((message) => message.id);
 
     MESSAGE_IDS.forEach((messageId, index) => {
       const ASSOCIATION_INDEX = index + 1;
